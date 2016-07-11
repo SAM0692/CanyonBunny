@@ -2,8 +2,11 @@ package com.packtpub.libgdx.canyonbunny.game;
 
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
+import com.packtpub.libgdx.canyonbunny.util.Constants;
 
 public class WorldRenderer implements Disposable {
 
@@ -11,14 +14,40 @@ public class WorldRenderer implements Disposable {
     private SpriteBatch batch;
     private WorldController worldController;
 
-    public WorldRenderer(WorldController worldController) {}
-    private void init() {}
+    public WorldRenderer(WorldController worldController) {
+        this.worldController = worldController;
+        init();
+    }
+    private void init() {
+        batch = new SpriteBatch();
+        camera = new OrthographicCamera();
+        camera.viewportWidth = Constants.VIEWPORT_WIDTH;
+        camera.viewportHeight = Constants.VIEWPORT_HEIGHT;
+        camera.position.set(0, 0, 0);
+        camera.update();
+    }
 
-    public void render(float deltaTime) {}
-    public void resize(int width, int height) {}
+    public void render() {
+        renderTestObjects();
+    }
+
+    private void renderTestObjects() {
+        worldController.cameraHelper.applyTo(camera);
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        for(Sprite sprite : worldController.testSprites) {
+            sprite.draw(batch);
+        }
+        batch.end();
+    }
+
+    public void resize(int width, int height) {
+        camera.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) * width;
+        camera.update();
+    }
 
     @Override
     public void dispose() {
-
+        batch.dispose();
     }
 }
