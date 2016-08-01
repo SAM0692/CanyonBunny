@@ -33,6 +33,7 @@ public class CanyonBunnyMain implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height) {
+		// In the event of any screen resize
 		worldRenderer.resize(width, height);
 	}
 
