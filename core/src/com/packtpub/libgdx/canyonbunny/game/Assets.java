@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetsErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Disposable;
 import com.packtpub.libgdx.canyonbunny.util.Constants;
 
@@ -47,4 +48,43 @@ public class Assets implements Disposable, AssetErrorListener {
   public void error(String filename, Class type, Throwable throwable) {
     Gdx.app.error(TAG, "Couln't load asset '" + asset.fileName + "'", (Exception)throwable);
   }
+  
+  public class AssetBunny {
+    public final AtlasRegion head;
+    
+    public AssetBunny(TextureAtlas atlas) {
+      head = atlas.findRegion("bunny_head");
+    }
+  }
+  
+  public class AssetRock {
+    public final AtlasRegion edge;
+    public final AtlasRegion middle;
+    
+    public AssetRock(TextureAtlas atlas) {
+      edge = atlas.findRegion("rock_edge");
+      middle = atlas.findRegion("rock_middle");
+    }
+  }
+  
+  public class AssetGoldCoin {
+    public final goldCoin;
+    
+    public AssetGoldCoin(TextureAtlas atlas) {
+      goldCoin = atlas.findRegion("item_gold_coin");
+    }
+  }
+  
+  public class AssetFeather {
+    public final feather;
+    
+    public AssetFeather(TextureAtlas atlas) {
+      feather = altas.findRegion("item_feather");
+    }
+  }
 }
+
+
+
+
+
