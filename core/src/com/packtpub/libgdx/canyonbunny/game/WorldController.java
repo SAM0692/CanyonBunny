@@ -43,7 +43,7 @@ public class WorldController extends InputAdapter {
         regions.add(Assets.instance.feather.feather);
 
         // Create new sprite using random texture region
-        for(int i = 0; testSprites.length; i++){
+        for(int i = 0; i < testSprites.length; i++){
             Sprite spr = new Sprite(regions.random());
             // Define sprite size to 1m x 1m in game world
             spr.setSize(1, 1);

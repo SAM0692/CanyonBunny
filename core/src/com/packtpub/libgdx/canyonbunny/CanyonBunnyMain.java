@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.assets.AssetManager;
 import com.packtpub.libgdx.canyonbunny.game.WorldController;
 import com.packtpub.libgdx.canyonbunny.game.WorldRenderer;
-import com.pakctpub.libgdx.canyonbunny.game.Assets;
+import com.packtpub.libgdx.canyonbunny.game.Assets;
 
 public class CanyonBunnyMain implements ApplicationListener {
 
@@ -26,7 +26,7 @@ public class CanyonBunnyMain implements ApplicationListener {
 		// Set the log level to debug
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		// Load assets
-		Assets.instance.init(new AssetsManager());
+		Assets.instance.init(new AssetManager());
 
 		// Initialize controller and renderer
 		worldController = new WorldController();
