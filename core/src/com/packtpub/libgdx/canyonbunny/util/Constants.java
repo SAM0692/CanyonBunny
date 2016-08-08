@@ -8,4 +8,7 @@ public class Constants {
     
     // Location of the description file for the texture atlas
     public static final String TEXTURE_ATLAS_OBJECTS = "images/canyonbunny.atlas";
+    
+    // Location of the image file for level 01
+    public static final String LEVEL_01 = "levels/level-01.png";
 }
