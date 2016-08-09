@@ -43,7 +43,7 @@ public class Rock extends AbstractGameObject {
     reg = regEdge;
     relX -= dimension.x / 4;
     batch.draw(reg.getTexture(), position.x + relX, position.y + relY, origin.x, origin.y, dimension.x / 4, dimension.y,
-                scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegiony(), reg.getRegionWidth(), reg.getRegionHeight(),
+                scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(),
                 false, false);
                 
     // Draw middle
@@ -51,7 +51,7 @@ public class Rock extends AbstractGameObject {
     relX = 0;
     for(int i = 0; i < length; i++){
       batch.draw(reg.getTexture(), position.x + relX, position.y + relY, origin.x, origin.y, dimension.x, dimension.y,
-                scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegiony(), reg.getRegionWidth(), reg.getRegionHeight(),
+                scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(),
                 false, false);
                 relX += dimension.x;
     }
@@ -59,7 +59,7 @@ public class Rock extends AbstractGameObject {
     // Draw right edge
     reg = regEdge;
     batch.draw(reg.getTexture(), position.x + relX, position.y + relY, origin.x + dimension.x / 8, origin.y, dimension.x / 4, dimension.y,
-                scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegiony(), reg.getRegionWidth(), reg.getRegionHeight(),
+                scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(),
                 true, false);
   }
  
