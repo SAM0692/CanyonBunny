@@ -41,7 +41,7 @@ public class Mountains extends AbstracGameObject {
     for(int i = 0; i < mountainLength; i++){
       // Mountain left 
       reg = regMountainLeft;
-      batch.draw(reg.getTexture(), origin.x + xRel, position.y, + origin.y + yRel, origin.x, origin.y,dimension.x, dimension.y,
+      batch.draw(reg.getTexture(), origin.x + xRel, position.y + origin.y + yRel, origin.x, origin.y,dimension.x, dimension.y,
                   scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(),
                   false, false);
       xRel += dimension.x;
