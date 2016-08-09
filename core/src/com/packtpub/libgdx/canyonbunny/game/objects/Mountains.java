@@ -43,14 +43,14 @@ public class Mountains extends AbstracGameObject {
       reg = regMountainLeft;
       batch.draw(reg.getTexture(), origin.x + xRel, position.y, + origin.y + yRel, origin.x, origin.y,dimension.x, dimension.y,
                   scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(),
-                  false, false;
+                  false, false);
       xRel += dimension.x;
                   
       // Mountain right
       reg = regMountainRight;
       batch.draw(reg.getTexture(), origin.x + xRel, position.y, + origin.y + yRel, origin.x, origin.y,dimension.x, dimension.y,
                   scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(),
-                  false, false;
+                  false, false);
       xRel += dimension.x;            
     }
     // Reset the color to white
