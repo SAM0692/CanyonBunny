@@ -45,7 +45,20 @@ public class Level {
     init(fileName);
   }
   
-  private void init(String fileName) {}
+  private void init(String fileName) {
+    // Objects
+    rock = new Array<Rock>();
+    
+    // Load image file that represents the level data
+    Pixmap pixmap = new Pixmap(Gdx.file.internal(fileName));
+    
+    // Scan pixels from top-left to bottom-right
+    for(int pixelY = 0; pixelY < pixmap.getHeight(); pixelY++) {
+      for(int pixelX = 0;pixelX < pixmap.getWidth(); pixelX++) {
+        
+      }
+    }
+  }
   public void render(SpriteBatch batch) {}
 }
 
