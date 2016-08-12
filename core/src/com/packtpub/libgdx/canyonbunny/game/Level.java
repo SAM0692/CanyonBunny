@@ -55,10 +55,65 @@ public class Level {
     // Scan pixels from top-left to bottom-right
     for(int pixelY = 0; pixelY < pixmap.getHeight(); pixelY++) {
       for(int pixelX = 0;pixelX < pixmap.getWidth(); pixelX++) {
+        AbstracGameObject obj = null;
+        float offsetHeight = 0;
+        // Height grows from bottom to top
+        float baseHeight = pixmap.getHeight() - pixelY;
+        // Get the color of current pixel as 32-bit RGBA value
+        int currentPixel = pixmap.getPixel(pixelX, pixelY);
+        // Find matching color value to identify block type at (x, y)
+        // point and create the corresponding game object if there is a match
         
+        // Empty space
+        if(BLOCK_TYPE.EMPTY.sameColor(currentPixel)){
+          // Do nothing
+        }
+        else if(BLOCK_TYPE.ROCK.sameColor(currentPixel)){
+          if(lastPixel != currentPixel){
+            obj = new Rock();
+            float heightIncreaseFactor = 0.25f;
+            offsetHeight = -2.5f;
+            obj.position.set(pixelX, baseHeight * obj.dimension.y * heightIncreaseFactor + offsetHeight);
+            rocks.add((Rock) obj);
+          } else{
+            rock.get(roks.size() -1).increaseLength(1);
+          }
+        }
+        else if(BLOCK_TYPE.PLAYER_SPAWNPOINT.sameColor(currentPixel)) {
+          
+        }
+        else if(BLOCK_TYPE.ITEM_FEATHER.sameColor(currentPixel)) {
+          
+        }
+        else if(BLOCK_TYPE.ITEM_GOLD_COIN.sameColor(currentPixel)) {
+          
+        }
+        else {
+          // For unknown object/pixel color
+          int r = 0xff & (currentPixel >>> 24); // Red color channel
+          int g = 0xff & (currentPixel >>> 16); // Green color channel
+          int b = 0xff & (currentPixel >>> 8); // Blue color channel
+          int a = 0xff & currentPixel;
+          
+          Gdx.app.error(TAG, "Unknown object at x<" + pixelX + "> y<" + pixelY + ">: r<" + r + "> g<" 
+                              + g + "> b<" + b + "> a<" + a + ">");
+        }
+        lastPixel = currentPixel;
       }
     }
+    // Decoration
+    clouds = new Clouds(pixmap.getWidth());
+    clouds.position.set(0, 2);
+    mountains = new Mountains(pixmap.getWidth());
+    mountains.position.set(-1, -1);
+    waterOverlay = new WaterOverlay(pixmap.getWidth());
+    waterOverlay.position.set(0, -3.75f);
+    
+    // Free memory
+    pixmap.dispose();
+    Gdx.app.debug(TAG, "Level '" + fileName + "' loaded");
   }
+  
   public void render(SpriteBatch batch) {}
 }
 
