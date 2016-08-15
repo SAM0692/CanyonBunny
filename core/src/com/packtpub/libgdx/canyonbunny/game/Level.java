@@ -114,7 +114,18 @@ public class Level {
     Gdx.app.debug(TAG, "Level '" + fileName + "' loaded");
   }
   
-  public void render(SpriteBatch batch) {}
+  public void render(SpriteBatch batch) {
+    // Draw Mountains
+    mountians.render(batch);
+    // Draw Rocks
+    for(Rock rock : rocks) {
+      rock.render(batch);
+    }
+    // Draw WaterOverlay
+    waterOverlay.render(batch);
+    // Draw clouds
+    clouds.render(batch);
+  }
 }
 
 
