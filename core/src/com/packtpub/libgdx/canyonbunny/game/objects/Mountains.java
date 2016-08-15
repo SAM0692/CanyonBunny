@@ -3,16 +3,17 @@ package com.packtpub.libgdx.canyonbunny.game.objects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.packtpub.libgdx.canyonbunny.game.Assets
+import com.packtpub.libgdx.canyonbunny.game.Assets;
+import com.packtpub.libgdx.canyonbunny.game.objects.AbstractGameObject;
 
-public class Mountains extends AbstracGameObject {
+public class Mountains extends AbstractGameObject {
   
   private TextureRegion regMountainLeft;
   private TextureRegion regMountainRight;
   
   private int length;
   
-  public Mountain(int length) {
+  public Mountains(int length) {
     this.length = length;
     init();
   }
@@ -21,14 +22,14 @@ public class Mountains extends AbstracGameObject {
     dimension.set(10, 2);
     
     regMountainLeft = Assets.instance.levelDecoration.mountainLeft;
-    regMountainRIght = Assets.instance.levelDecoration.mountainRight;
+    regMountainRight = Assets.instance.levelDecoration.mountainRight;
     
     // Shift the mountain and extend length
     origin.x = -dimension.x * 2;
     length += dimension.x * 2;
   }
   
-  private void void drawMountain(SpriteBatch batch, float offsetX, float offsetY, float tintColor) {
+  private void drawMountain(SpriteBatch batch, float offsetX, float offsetY, float tintColor) {
     TextureRegion reg = null;
     batch.setColor(tintColor, tintColor, tintColor, 1);
     float xRel = dimension.x * offsetX;
@@ -48,7 +49,7 @@ public class Mountains extends AbstracGameObject {
                   
       // Mountain right
       reg = regMountainRight;
-      batch.draw(reg.getTexture(), origin.x + xRel, position.y, + origin.y + yRel, origin.x, origin.y,dimension.x, dimension.y,
+      batch.draw(reg.getTexture(), origin.x + xRel, position.y + origin.y + yRel, origin.x, origin.y,dimension.x, dimension.y,
                   scale.x, scale.y, rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(),
                   false, false);
       xRel += dimension.x;            
@@ -58,7 +59,7 @@ public class Mountains extends AbstracGameObject {
   }
   
   @Override
-  public void render(SpriteBatch sprite) {
+  public void render(SpriteBatch batch) {
     // Distant mountains (dark gray)
     drawMountain(batch, 0.5f, 0.5f, 0.5f);
     // Distant mountains (gray)

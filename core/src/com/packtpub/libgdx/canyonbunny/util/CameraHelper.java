@@ -4,7 +4,7 @@ package com.packtpub.libgdx.canyonbunny.util;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.packtpub.libgdx.canyonbunny.game.objects.AbstracGameObject;
+import com.packtpub.libgdx.canyonbunny.game.objects.AbstractGameObject;
 
 public class CameraHelper {
     private static final String TAG = CameraHelper.class.getName();
@@ -14,7 +14,7 @@ public class CameraHelper {
 
     private Vector2 position;
     private float zoom;
-    private Sprite target;
+    private AbstractGameObject target;
 
     public CameraHelper() {
         position = new Vector2();

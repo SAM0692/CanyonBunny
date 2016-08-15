@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.packtpub.libgdx.canyonbunny.game.objects.AbstracGameObject;
+import com.packtpub.libgdx.canyonbunny.game.objects.AbstractGameObject;
 import com.packtpub.libgdx.canyonbunny.game.objects.Clouds;
 import com.packtpub.libgdx.canyonbunny.game.objects.Mountains;
 import com.packtpub.libgdx.canyonbunny.game.objects.Rock;
@@ -47,15 +47,17 @@ public class Level {
   
   private void init(String fileName) {
     // Objects
-    rock = new Array<Rock>();
+    rocks = new Array<Rock>();
     
     // Load image file that represents the level data
-    Pixmap pixmap = new Pixmap(Gdx.file.internal(fileName));
+    Pixmap pixmap = new Pixmap(Gdx.files.internal(fileName));
+
+    int lastPixel = -1;
     
     // Scan pixels from top-left to bottom-right
     for(int pixelY = 0; pixelY < pixmap.getHeight(); pixelY++) {
       for(int pixelX = 0;pixelX < pixmap.getWidth(); pixelX++) {
-        AbstracGameObject obj = null;
+        AbstractGameObject obj = null;
         float offsetHeight = 0;
         // Height grows from bottom to top
         float baseHeight = pixmap.getHeight() - pixelY;
@@ -76,7 +78,7 @@ public class Level {
             obj.position.set(pixelX, baseHeight * obj.dimension.y * heightIncreaseFactor + offsetHeight);
             rocks.add((Rock) obj);
           } else{
-            rock.get(roks.size() -1).increaseLength(1);
+            rocks.get(rocks.size - 1).increaseLength(1);
           }
         }
         else if(BLOCK_TYPE.PLAYER_SPAWNPOINT.sameColor(currentPixel)) {
@@ -116,7 +118,7 @@ public class Level {
   
   public void render(SpriteBatch batch) {
     // Draw Mountains
-    mountians.render(batch);
+    mountains.render(batch);
     // Draw Rocks
     for(Rock rock : rocks) {
       rock.render(batch);

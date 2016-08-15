@@ -70,7 +70,7 @@ public class Clouds extends AbstractGameObject {
   @Override
   public void render(SpriteBatch batch) {
     for(Cloud cloud : clouds) {
-      clouds.render(batch);
+      cloud.render(batch);
     }
   }
 }
