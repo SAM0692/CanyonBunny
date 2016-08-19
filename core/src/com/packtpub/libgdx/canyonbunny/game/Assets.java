@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.utils.Disposable;
@@ -18,15 +19,17 @@ public class Assets implements Disposable, AssetErrorListener {
 
     private AssetManager assetManager;
 
-    // singleton: prevent instantiation from other classes
-    private Assets() {
-    }
-
     public AssetBunny bunny;
     public AssetRock rock;
     public AssetGoldCoin goldCoin;
     public AssetFeather feather;
     public AssetLevelDecoration levelDecoration;
+
+    public AssetFonts fonts;
+
+    // singleton: prevent instantiation from other classes
+    private Assets() {
+    }
 
     public void init(AssetManager assetManager) {
         this.assetManager = assetManager;
@@ -49,6 +52,8 @@ public class Assets implements Disposable, AssetErrorListener {
             t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         }
 
+        // Create game world objects
+        fonts = new AssetFonts();
         bunny = new AssetBunny(atlas);
         rock = new AssetRock(atlas);
         goldCoin = new AssetGoldCoin(atlas);
@@ -59,6 +64,9 @@ public class Assets implements Disposable, AssetErrorListener {
     @Override
     public void dispose() {
         assetManager.dispose();
+        fonts.defaultSmall.dispose();
+        fonts.defaultNormal.dispose();
+        fonts.defaultBig.dispose();
     }
 
     @Override
@@ -115,6 +123,29 @@ public class Assets implements Disposable, AssetErrorListener {
             mountainLeft = atlas.findRegion("mountain_left");
             mountainRight = atlas.findRegion("mountain_right");
             waterOverlay = atlas.findRegion("water_overlay");
+        }
+    }
+
+    public class AssetFonts {
+        public BitmapFont defaultSmall;
+        public BitmapFont defaultNormal;
+        public BitmapFont defaultBig;
+
+        public AssetFonts() {
+            // Create three fonts using libgdx's 15px bitmap font
+            defaultSmall = new BitmapFont(Gdx.files.internal("images/arial-15.fnt"));
+            defaultNormal = new BitmapFont(Gdx.files.internal("images/arial-15.fnt"));
+            defaultBig = new BitmapFont(Gdx.files.internal("images/arial-15.fnt"));
+
+            // Set font sizes
+            defaultSmall.getData().scale(0.75f);
+            defaultNormal.getData().scale(1.0f);
+            defaultBig.getData().scale(2.0f);
+
+            // Enable linear texture filtering for smooth fonts
+            defaultSmall.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+            defaultNormal.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+            defaultBig.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
         }
     }
 }
