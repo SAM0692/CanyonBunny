@@ -37,6 +37,7 @@ public class WorldRenderer implements Disposable {
 
     public void render() {
         renderWorld(batch);
+        renderGui(batch);
     }
 
     private void renderWorld(SpriteBatch batch) {
@@ -44,6 +45,18 @@ public class WorldRenderer implements Disposable {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         worldController.level.render(batch);
+        batch.end();
+    }
+    
+    private void renderGui(SpriteBatch batch) {
+        batch.setProjectionMatrix(cameraGUI.combined);
+        batch.begin();
+        // draw collected coins
+        renderGuiScore(batch);
+        // draw extra lives
+        renderGuiExtraLives(batch);
+        // draw fps counter
+        renderGuiFpsCounter(batch);
         batch.end();
     }
 
@@ -64,9 +77,43 @@ public class WorldRenderer implements Disposable {
         batch.draw(Assets.instance.goldCoin.goldCoin, x, y, 50, 50, 100, 100, 0.35f, -0.35f, 0);
         Assets.instance.fonts.defaultBig.draw(batch, "" + worldController.score, x + 75, y + 37);
     }
+    
+    private void renderGuiExtraLive(SpriteBatch batch) {
+        float x = cameraGUI.viewportWidth - 50f - Constants.LIVES_START * 50f;
+        float y = -15;
+        for(int i = 0; i < Constants.LIVES_START; i++){
+            if(WorldController.lives <= i) {
+                batch.setColor(0.5f, 0.5f, 0.5f, 0.5f);
+            }
+            batch.draw(Assets.instance.bunny.head, x + i * 50, y, 50, 50, 120, 100, 0.35f, -0.35f, 0);
+            batch.setColor(1, 1, 1, 1);
+        }
+    }
+    
+    private void renderGuiFpsCounter(SpriteBatch batch) {
+        float x = cameraGUI.viewportWidth - 55;
+        float y = cameraGUI.viewportHeight - 15;
+        int fps = Gdx.graphics.getFramesPerSecond();
+        BitmapFonts fpsFont = Assets.instance.fonts.defaultNormal;
+        if(fps >= 45) {
+            // 45 or more fps show up in green
+            fpsFont.setColor(0, 1, 0, 1);
+        }else if(fps >= 30) {
+            // 30 or more fps show up in yellow
+            fpsFont.setColor(1, 1, 0, 1);
+        }else {
+            // less than 30 fps show up in red
+            fpsFont.setColor(1, 0, 0, 1);
+        }
+        fpsFont.draw(batch, "FPS: " + fps, x, y);
+        fpsFont.setColor(1, 1, 1, 1); // White
+    }
 
     @Override
     public void dispose() {
         batch.dispose();
     }
 }
+
+
+
