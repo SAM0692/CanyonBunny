@@ -1,6 +1,7 @@
 package com.packtpub.libgdx.canyonbunny.game;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -28,11 +29,11 @@ public class WorldRenderer implements Disposable {
         camera.update();
 
         cameraGUI = new OrthographicCamera();
-        camera.viewportWidth = Constants.VIEWPORT_GUI_WIDTH;
-        camera.viewportHeight = Constants.VIEWPORT_GUI_HEIGHT;
-        camera.position.set(0, 0, 0);
-        camera.setToOrtho(true); // flip y-axis
-        camera.update();
+        cameraGUI.viewportWidth = Constants.VIEWPORT_GUI_WIDTH;
+        cameraGUI.viewportHeight = Constants.VIEWPORT_GUI_HEIGHT;
+        cameraGUI.position.set(0, 0, 0);
+        cameraGUI.setToOrtho(true); // flip y-axis
+        cameraGUI.update();
     }
 
     public void render() {
@@ -54,7 +55,7 @@ public class WorldRenderer implements Disposable {
         // draw collected coins
         renderGuiScore(batch);
         // draw extra lives
-        renderGuiExtraLives(batch);
+        renderGuiExtraLive(batch);
         // draw fps counter
         renderGuiFpsCounter(batch);
         batch.end();
@@ -64,8 +65,8 @@ public class WorldRenderer implements Disposable {
         camera.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) * width;
         camera.update();
 
-        cameraGUI.viewportWidth = Constants.VIEWPORT_GUI_WIDTH;
-        cameraGUI.viewportHeight = Constants.VIEWPORT_GUI_HEIGHT / (float)height * (float)width;
+        cameraGUI.viewportHeight = Constants.VIEWPORT_GUI_HEIGHT;
+        cameraGUI.viewportWidth = Constants.VIEWPORT_GUI_HEIGHT / (float)height * (float)width;
         cameraGUI.position.set(cameraGUI.viewportWidth / 2, cameraGUI.viewportHeight / 2, 0);
         cameraGUI.update();
 
@@ -79,10 +80,10 @@ public class WorldRenderer implements Disposable {
     }
     
     private void renderGuiExtraLive(SpriteBatch batch) {
-        float x = cameraGUI.viewportWidth - 50f - Constants.LIVES_START * 50f;
+        float x = cameraGUI.viewportWidth - 50 - Constants.LIVES_START * 50f;
         float y = -15;
         for(int i = 0; i < Constants.LIVES_START; i++){
-            if(WorldController.lives <= i) {
+            if(worldController.lives <= i) {
                 batch.setColor(0.5f, 0.5f, 0.5f, 0.5f);
             }
             batch.draw(Assets.instance.bunny.head, x + i * 50, y, 50, 50, 120, 100, 0.35f, -0.35f, 0);
@@ -91,10 +92,10 @@ public class WorldRenderer implements Disposable {
     }
     
     private void renderGuiFpsCounter(SpriteBatch batch) {
-        float x = cameraGUI.viewportWidth - 55;
-        float y = cameraGUI.viewportHeight - 15;
+        float x = cameraGUI.viewportWidth - 110;
+        float y = cameraGUI.viewportHeight - 30;
         int fps = Gdx.graphics.getFramesPerSecond();
-        BitmapFonts fpsFont = Assets.instance.fonts.defaultNormal;
+        BitmapFont fpsFont = Assets.instance.fonts.defaultNormal;
         if(fps >= 45) {
             // 45 or more fps show up in green
             fpsFont.setColor(0, 1, 0, 1);
